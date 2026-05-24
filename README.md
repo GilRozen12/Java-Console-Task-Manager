@@ -1,90 +1,161 @@
 
-# Task Manager
-A small-to-medium Java console application for managing tasks.
-This project was built as a personal portfolio project to demonstrate clean OOP design, clear separation of responsibilities, and basic file persistence in Java.
+# Task Manager — Java Console + JavaFX
+A personal Java project for managing tasks, built to demonstrate clean object-oriented design, layered architecture, file persistence, and a simple desktop GUI.
+This project started as a **console-based task manager** and was later extended with a **JavaFX GUI**, while keeping the same core business logic and storage layer.
+The result is a small but complete application that shows how the same backend can support multiple interfaces.
+---
+## Overview
+The project includes two separate interfaces:
+- **Console application**
+- **JavaFX desktop application**
+  Both versions use the same core components for:
+- task modeling
+- business logic
+- file persistence
+  This makes the project a good example of separating **UI**, **logic**, and **storage** responsibilities.
+---
 ## Features
+### Core task management
 - Create tasks
-- Show all tasks
+- View all tasks
 - Delete tasks
-- Update full task details
 - Update task status
+- Update full task details
 - Filter tasks by status
 - Filter tasks by priority
 - Save tasks to a file
-- Load tasks from a file when the program starts
-
-
-## Task Fields
-Each task includes:
-- ID
-- Title
-- Description
-- Status
-- Priority
-- Due date (optional)
-
-
-## Technologies
-- Java 17
-- IntelliJ IDEA
-- File-based persistence using plain text
-- Console-based user interface
-
-
+- Load tasks from a file on startup
+### Console version
+- Menu-driven interaction
+- Input validation for task fields
+- Save on exit
+### JavaFX GUI version
+- Table-based task display
+- Add Task dialog
+- Delete selected task
+- Update status for selected task
+- Filter by status and priority
+- Auto-load on startup
+- Auto-save on close
+---
+## Tech Stack
+- **Java 17**
+- **JavaFX**
+- **Maven**
+- **IntelliJ IDEA**
+- Plain text file persistence
+---
 ## Project Structure
 ```text
 src/
-└── taskmanager/
-    ├── Main.java
-    ├── model/
-    │   ├── Task.java
-    │   ├── TaskPriority.java
-    │   └── TaskStatus.java
-    ├── service/
-    │   └── TaskManager.java
-    ├── storage/
-    │   └── TaskFileRepository.java
-    └── ui/
-        └── ConsoleUI.java
+└── main/
+    └── java/
+        └── taskmanager/
+            ├── Main.java
+            ├── model/
+            │   ├── Task.java
+            │   ├── TaskPriority.java
+            │   └── TaskStatus.java
+            ├── service/
+            │   └── TaskManager.java
+            ├── storage/
+            │   └── TaskFileRepository.java
+            ├── ui/
+            │   └── ConsoleUI.java
+            └── gui/
+                ├── TaskManagerApp.java
+                ├── MainWindow.java
+                └── AddTaskDialog.java
 
+⸻
 
+Architecture
 
-Architecture, The project is divided into a few simple layers:
+The code is organized into clear layers.
 
-model -
-Contains the domain objects and enums used by the application.
+model
 
-service -
-Contains the main business logic for managing tasks in memory.
+Contains the domain model and enums:
 
-storage -
-Handles saving tasks to a text file and loading them back into the application.
+* Task
+* TaskPriority
+* TaskStatus
 
-ui -
-Contains the console interface and user interaction flow.
+service
 
-Main -
-Responsible only for wiring the application together and starting it.
+Contains the main business logic:
 
-File Persistence -
-Tasks are saved in a plain text file called tasks.txt.
-Each task is stored in one line using this format:
+* TaskManager
+
+storage
+
+Responsible for reading and writing tasks to a file:
+
+* TaskFileRepository
+
+ui
+
+Contains the console interface:
+
+* ConsoleUI
+
+gui
+
+Contains the JavaFX desktop interface:
+
+* TaskManagerApp
+* MainWindow
+* AddTaskDialog
+
+Main
+
+The entry point for the console application.
+
+⸻
+
+Persistence Format
+
+Tasks are stored in a plain text file, one task per line, using this format:
 
 id|title|description|status|priority|dueDate
 
 If a task has no due date, the value none is used.
 
-____________________________________________________________________________________________
+Example:
+
+1|Finish OS assignment|Processes and scheduling|PENDING|HIGH|2026-05-27
+2|Buy groceries|Milk and eggs|COMPLETED|MEDIUM|none
+
+Note
+
+For this version of the project, the character | is not allowed inside the task title or description because it is used as the field separator.
+
+⸻
 
 How to Run:
 
-Run the application from IntelliJ IDEA by executing Main.java.
-If you want to run it manually from the terminal:
+Compile the project - 
+mvn compile
 
-javac -d out $(find src -name "*.java")
-java -cp out taskmanager.Main
+Run the console version - 
 
-Example Menu:
+From IntelliJ, run:
+
+taskmanager.Main
+
+Run the JavaFX GUI version - 
+
+mvn javafx:run
+
+If needed, the GUI can also be run directly from IntelliJ using:
+
+taskmanager.gui.TaskManagerApp
+
+⸻
+
+Console Menu
+
+The console version currently supports:
 
 1. Create task
 2. Show all tasks
@@ -94,32 +165,58 @@ Example Menu:
 6. Filter tasks
 7. Exit
 
-Design Goals
+⸻
 
-This project was intentionally kept small and focused.
+GUI Features
 
-Main goals:
+The JavaFX version currently supports:
 
-* Write clean and readable Java code
-* Practice OOP and responsibility separation
-* Create a polished GitHub project for student developer applications
+* displaying tasks in a table
+* adding tasks via a dialog
+* deleting the selected task
+* updating the status of the selected task
+* filtering by status and priority
+* automatic save on close
 
-Future Improvements
+⸻
 
-Possible next steps for the project:
+Why I Built This Project
 
-* Better input validation
-* Sorting tasks by due date or priority
-* Mark task completion automatically through a shortcut action
-* Better file format handling for special characters
+I built this project as a personal portfolio project to strengthen my Java fundamentals and create something clean, structured, and easy to explain.
+
+Instead of building a very large system, the goal was to build a small-to-medium project well:
+
+* clean code
+* clear responsibility separation
+* practical functionality
+* gradual extension from console to GUI
+
+⸻
+
+What This Project Demonstrates
+
+* Java OOP fundamentals
+* separation of concerns
+* layered application design
+* working with enums, collections, and dates
+* file-based persistence
+* building both console and GUI interfaces on the same backend
+* incremental project development
+
+⸻
+
+Possible Future Improvements
+
+* Full task editing from the GUI
+* Better GUI styling and layout polish
+* Sorting by due date or priority
+* Better validation and feedback messages
 * Unit tests
-* GUI version
-* Database persistence instead of a text file
+* JSON or database persistence
+* More robust handling of special characters in stored text
 
-Notes
+⸻
 
-For this version, the character | is not allowed in task title or description because it's used as the file separator.
+Author
 
-## Author
-
-Built by Gil Rozen as a personal Java project for learning and portfolio development.
+Built by Gil Rozen as a personal Java project for learning, portfolio development, and interview preparation.
