@@ -25,6 +25,17 @@ The project includes two separate interfaces:
 - Filter tasks by priority
 - Save tasks to a file
 - Load tasks from a file on startup
+---
+## Screenshots
+
+### Add Task Dialog
+![Add Task Dialog](screenshots/gui-add-task.png)
+
+### Filtering in the JavaFX GUI
+![Filtering in the JavaFX GUI](screenshots/gui-filtering.png)
+
+---
+
 ### Console version
 - Menu-driven interaction
 - Input validation for task fields
