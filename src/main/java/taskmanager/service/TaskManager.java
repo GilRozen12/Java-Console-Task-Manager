@@ -82,6 +82,19 @@ public class TaskManager {
         return result;
     }
 
+    public Task getMostUrgentTask() {
+        Task mostUrgent = null;
+        int highestScore = 0;
+        for (Task task : tasks) {
+            int score = UrgencyCalculator.calculateScore(task);
+            if (score > highestScore) {
+                highestScore = score;
+                mostUrgent = task;
+            }
+        }
+        return mostUrgent;
+    }
+
     public List<Task> getTasksByPriority(TaskPriority priority) {
         List<Task> result = new ArrayList<>();
         for (Task task : tasks) {
